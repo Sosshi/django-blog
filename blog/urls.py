@@ -8,7 +8,7 @@ from post.api.views import PostViewSet
 
 router = routers.DefaultRouter()
 router.register(r"profiles", UserProfileViewSet)
-router.register(r"posts", PostViewSet)
+router.register(r"posts", PostViewSet, basename="posts")
 
 urlpatterns = [
     path("admin/", admin.site.urls),

@@ -3,21 +3,28 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    """
+    All the extra fields needed are placed in the UserProfile model
+    """
+
     pass
 
 
 class UserProfile(models.Model):
-    friend = "Friend"
-    subscriber = "Subscriber"
-    family = "Family"
-
-    RELATION = (("friend", friend), ("subscriber", subscriber), ("family", family))
+    """
+    This contains all the user profile
+    it is related to the user Model
+    """
 
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     about = models.CharField(max_length=255)
     description = models.TextField()
     image = models.ImageField(upload_to="profile_images")
-    status = models.CharField(max_length=20, choices=RELATION)
+    isFamily = models.BooleanField(default=False)
+    isFriend = models.BooleanField(default=False)
+    isSubscriber = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
 
     def get_image(self):
         if self.image:
